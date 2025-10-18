@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 public class CreateMerchantsResponse {
 
     /** Merchant ID
-     * Fail return -1 
+     * Fail return -1
+     * Don't want to provide messgae to client
     */
     private Integer id;
 }

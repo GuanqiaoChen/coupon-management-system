@@ -4,8 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * <h1>测试用例入口</h1>
- * Created by Qinyi.
+ * <h1>Test main</h1>
  */
 @SpringBootApplication
 public class MerchantsApplication {

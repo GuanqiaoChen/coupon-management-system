@@ -14,8 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 
 /**
- * <h1>商户服务测试类</h1>
- * Created by Qinyi.
+ * <h1>Merchant service test</h1>
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -24,49 +23,51 @@ public class MerchantsServTest {
     @Autowired
     private IMerchantsServ merchantsServ;
 
-    /**
+    /** Test results:
      * {"data":{"id":7},"errorCode":0,"errorMsg":""}
      * {"data":{"id":8},"errorCode":0,"errorMsg":""}
      * */
     @Test
-//    @Transactional
+    @Transactional // Rollback after test
     public void testCreateMerchantServ() {
 
         CreateMerchantsRequest request = new CreateMerchantsRequest();
-        request.setName("慕课");
+        request.setName("mooc");
         request.setLogoUrl("www.imooc.com");
         request.setBusinessLicenseUrl("www.imooc.com");
         request.setPhone("1234567890");
-        request.setAddress("北京市");
+        request.setAddress("New York");
 
         System.out.println(JSON.toJSONString(merchantsServ.createMerchants(request)));
     }
 
-    /**
-     * {"data":{"address":"北京市",
+    /** Test results:
+     * {"data":{"address":"New York",
      * "businessLicenseUrl":"www.imooc.com","id":9,"isAudit":false,
      * "logoUrl":"www.imooc.com",
-     * "name":"慕课","phone":"1234567890"},"errorCode":0,"errorMsg":""}
+     * "name":"mooc","phone":"1234567890"},"errorCode":0,"errorMsg":""}
      * */
     @Test
+    @Transactional
     public void testBuildMerchantsInfoById() {
 
         System.out.println(JSON.toJSONString(merchantsServ.buildMerchantsInfoById(9)));
     }
 
-    /**
-     * DropPassTemplates: {"background":2,"desc":"详情: 慕课",
+    /** Test results:
+     * DropPassTemplates: {"background":2,"desc":"mooc desc",
      * "end":1528202373202,"hasToken":false,"id":9,"limit":10000,
-     * "start":1527338373202,"summary":"简介: 慕课","title":"title: 慕课"}
+     * "start":1527338373202,"summary":"mooc summary","title":"title: mooc-1"}
      * */
     @Test
+    @Transactional
     public void testDropPassTemplate() {
 
         PassTemplate passTemplate = new PassTemplate();
         passTemplate.setId(9);
-        passTemplate.setTitle("慕课-1");
-        passTemplate.setSummary("简介: 慕课");
-        passTemplate.setDesc("详情: 慕课");
+        passTemplate.setTitle("mooc-1");
+        passTemplate.setSummary("mooc summary");
+        passTemplate.setDesc("mooc desc");
         passTemplate.setLimit(10000L);
         passTemplate.setHasToken(false);
         passTemplate.setBackground(2);

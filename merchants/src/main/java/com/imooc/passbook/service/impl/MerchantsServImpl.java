@@ -17,14 +17,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * <h1>商户服务接口实现</h1>
- * Created by Qinyi.
+ * <h1>Merchant service impl</h1>
  */
 @Slf4j
 @Service
 public class MerchantsServImpl implements IMerchantsServ {
 
-    /** Merchants 数据库接口 */
+    /** Merchants database Dao interface */
     private final MerchantsDao merchantsDao;
 
     /** kafka 客户端 */
@@ -38,7 +37,7 @@ public class MerchantsServImpl implements IMerchantsServ {
     }
 
     @Override
-    @Transactional
+    @Transactional // Exist as transaction for consistency
     public Response createMerchants(CreateMerchantsRequest request) {
 
         Response response = new Response();
