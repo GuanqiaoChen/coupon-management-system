@@ -26,7 +26,7 @@ public class MerchantsServImpl implements IMerchantsServ {
     /** Merchants database Dao interface */
     private final MerchantsDao merchantsDao;
 
-    /** kafka 客户端 */
+    /** kafka support using spring starter in drop PassTemplate*/
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Autowired
@@ -85,9 +85,9 @@ public class MerchantsServImpl implements IMerchantsServ {
         } else {
             String passTemplate = JSON.toJSONString(template);
             kafkaTemplate.send(
-                    Constants.TEMPLATE_TOPIC,
-                    Constants.TEMPLATE_TOPIC,
-                    passTemplate
+                    Constants.TEMPLATE_TOPIC, // topic
+                    Constants.TEMPLATE_TOPIC, // key
+                    passTemplate // value   
             );
             log.info("DropPassTemplates: {}", passTemplate);
         }

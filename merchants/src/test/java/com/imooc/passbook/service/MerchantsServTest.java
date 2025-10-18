@@ -54,7 +54,7 @@ public class MerchantsServTest {
         System.out.println(JSON.toJSONString(merchantsServ.buildMerchantsInfoById(9)));
     }
 
-    /** Test results:
+    /** Test results from log.info:
      * DropPassTemplates: {"background":2,"desc":"mooc desc",
      * "end":1528202373202,"hasToken":false,"id":9,"limit":10000,
      * "start":1527338373202,"summary":"mooc summary","title":"title: mooc-1"}

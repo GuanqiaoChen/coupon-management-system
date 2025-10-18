@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 
 /**
  * <h1>General response</h1>
+ * Should be improved in the future
+ * Add extended response types
+ * Add generic support
+ * Add error handling 
  */
 @Data
 @NoArgsConstructor
