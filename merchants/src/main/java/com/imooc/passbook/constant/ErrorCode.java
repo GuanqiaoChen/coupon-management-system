@@ -1,7 +1,7 @@
 package com.imooc.passbook.constant;
 
 /**
- * <h2>definition for error code</h2>
+ * <h2>Definition for error code</h2>
  */
 public enum ErrorCode {
 
@@ -13,10 +13,10 @@ public enum ErrorCode {
     EMPTY_ADDRESS(5, "merchant address is empty"),
     MERCHANTS_NOT_EXIST(6, "merchant does not exist"),;
 
-    /** error code */
+    /** Error code */
     private Integer code;
 
-    /** error description */
+    /** Error description */
     private String desc;
 
     ErrorCode(Integer code, String desc) {

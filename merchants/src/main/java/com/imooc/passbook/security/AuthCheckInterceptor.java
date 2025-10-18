@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * <h1>权限拦截器</h1>
- * Created by Qinyi.
+ * <h1>Intercepter</h1>
  */
 @Component
 public class AuthCheckInterceptor implements HandlerInterceptor {
@@ -23,11 +22,11 @@ public class AuthCheckInterceptor implements HandlerInterceptor {
         String token = httpServletRequest.getHeader(Constants.TOKEN_STRING);
 
         if (StringUtils.isEmpty(token)) {
-            throw new Exception("Header 中缺少 " + Constants.TOKEN_STRING + "!");
+            throw new Exception("No such token " + Constants.TOKEN_STRING + " in header!");
         }
 
         if (!token.equals(Constants.TOKEN)) {
-            throw new Exception("Header 中 " + Constants.TOKEN_STRING + "错误!");
+            throw new Exception("Token " + Constants.TOKEN_STRING + " has error!");
         }
 
         AccessContext.setToken(token);
@@ -41,6 +40,7 @@ public class AuthCheckInterceptor implements HandlerInterceptor {
 
     }
 
+    // Clear the token in ThreadLocal if exception occurs
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest,
                                 HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {

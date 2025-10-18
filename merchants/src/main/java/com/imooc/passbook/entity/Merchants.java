@@ -12,8 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * <h1>商户对象模型</h1>
- * Created by Qinyi.
+ * <h1>Merchant entity</h1>
  */
 @Data
 @NoArgsConstructor
@@ -22,38 +21,38 @@ import javax.persistence.Table;
 @Table(name = "merchants")
 public class Merchants {
 
-    /** 商户 id, 主键 */
+    /** Merchant ID. Primary Key */
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    /** 商户名称, 需要是全局唯一的 */
+    /** Merchant name. Global unique */
     @Basic
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    /** 商户 logo */
+    /** Merchant logo */
     @Basic
     @Column(name = "logo_url", nullable = false)
     private String logoUrl;
 
-    /** 商户营业执照 */
+    /** Business lisence url */
     @Basic
     @Column(name = "business_license_url", nullable = false)
     private String businessLicenseUrl;
 
-    /** 商户的联系电话 */
+    /** Contact phone */
     @Basic
     @Column(name = "phone", nullable = false)
     private String phone;
 
-    /** 商户地址 */
+    /** Address */
     @Basic
     @Column(name = "address", nullable = false)
     private String address;
 
-    /** 商户是否通过审核 */
+    /** Whether is audit */
     @Basic
     @Column(name = "is_audit", nullable = false)
     private Boolean isAudit = false;
