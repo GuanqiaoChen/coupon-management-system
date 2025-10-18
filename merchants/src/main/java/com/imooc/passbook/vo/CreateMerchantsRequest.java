@@ -15,19 +15,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CreateMerchantsRequest {
 
-    /** Merchant name */
+    // Merchant name 
     private String name;
 
-    /** Merchant logo */
+    // Merchant logo 
     private String logoUrl;
 
-    /** Business lisence logo */
+    // Business lisence logo 
     private String businessLicenseUrl;
 
-    /** Contact phone */
+    // Contact phone 
     private String phone;
 
-    /** Address */
+    // Address 
     private String address;
 
     /**

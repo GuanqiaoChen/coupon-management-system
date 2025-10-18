@@ -23,7 +23,8 @@ public class MerchantsServTest {
     @Autowired
     private IMerchantsServ merchantsServ;
 
-    /** Test results:
+    /** 
+     * Test results:
      * {"data":{"id":7},"errorCode":0,"errorMsg":""}
      * {"data":{"id":8},"errorCode":0,"errorMsg":""}
      * */
@@ -41,7 +42,8 @@ public class MerchantsServTest {
         System.out.println(JSON.toJSONString(merchantsServ.createMerchants(request)));
     }
 
-    /** Test results:
+    /** 
+     * Test results:
      * {"data":{"address":"New York",
      * "businessLicenseUrl":"www.imooc.com","id":9,"isAudit":false,
      * "logoUrl":"www.imooc.com",
@@ -54,7 +56,8 @@ public class MerchantsServTest {
         System.out.println(JSON.toJSONString(merchantsServ.buildMerchantsInfoById(9)));
     }
 
-    /** Test results from log.info:
+    /** 
+     * Test results from log.info:
      * DropPassTemplates: {"background":2,"desc":"mooc desc",
      * "end":1528202373202,"hasToken":false,"id":9,"limit":10000,
      * "start":1527338373202,"summary":"mooc summary","title":"title: mooc-1"}

@@ -21,38 +21,38 @@ import javax.persistence.Table;
 @Table(name = "merchants")
 public class Merchants {
 
-    /** Merchant ID. Primary Key */
+    // Merchant ID. Primary Key 
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    /** Merchant name. Global unique */
+    // Merchant name. Global unique 
     @Basic
     @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    /** Merchant logo */
+    // Merchant logo 
     @Basic
     @Column(name = "logo_url", nullable = false)
     private String logoUrl;
 
-    /** Business lisence url */
+    // Business lisence url 
     @Basic
     @Column(name = "business_license_url", nullable = false)
     private String businessLicenseUrl;
 
-    /** Contact phone */
+    // Contact phone 
     @Basic
     @Column(name = "phone", nullable = false)
     private String phone;
 
-    /** Address */
+    // Address 
     @Basic
     @Column(name = "address", nullable = false)
     private String address;
 
-    /** Whether is audit */
+    // Whether is audit 
     @Basic
     @Column(name = "is_audit", nullable = false)
     private Boolean isAudit = false;

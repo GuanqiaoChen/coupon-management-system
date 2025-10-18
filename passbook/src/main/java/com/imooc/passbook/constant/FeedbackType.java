@@ -1,18 +1,17 @@
 package com.imooc.passbook.constant;
 
 /**
- * <h1>评论类型枚举</h1>
- * Created by Qinyi.
+ * <h1>Feedback type</h1>
  */
 public enum FeedbackType {
 
-    PASS("pass", "针对优惠券的评论"),
-    APP("app", "针对卡包 App 的评论");
+    PASS("pass", "For coupon feedback"),
+    APP("app", "For app feedback");
 
-    /** 评论类型编码 */
+    /** Feedback code */
     private String code;
 
-    /** 评论类型描述 */
+    /** Feedback desciption */
     private String desc;
 
     FeedbackType(String code, String desc) {

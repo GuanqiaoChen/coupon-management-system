@@ -16,17 +16,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Response {
 
-    /** Error code
+    /* Error code
      * Ok return 0 
     */
     private Integer errorCode = 0;
 
-    /** Error Message. 
+    /* Error Message. 
      * Ok return empty string 
     */
     private String errorMsg = "";
 
-    /** response object */
+    // response object 
     private Object data;
 
     /**

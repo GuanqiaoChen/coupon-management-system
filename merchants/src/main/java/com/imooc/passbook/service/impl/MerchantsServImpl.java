@@ -23,10 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class MerchantsServImpl implements IMerchantsServ {
 
-    /** Merchants database Dao interface */
+    // Merchants database Dao interface 
     private final MerchantsDao merchantsDao;
 
-    /** kafka support using spring starter in drop PassTemplate*/
+    // kafka support using spring starter in drop PassTemplate
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Autowired

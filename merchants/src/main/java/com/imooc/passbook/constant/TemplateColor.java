@@ -9,10 +9,10 @@ public enum TemplateColor {
     GREEN(2, "green"),
     BLUE(3, "blue");
 
-    /** Color code */
+    // Color code 
     private Integer code;
 
-    /** Color description */
+    // Color description 
     private String color;
 
     TemplateColor(Integer code, String color) {

@@ -2,7 +2,6 @@ package com.imooc.passbook.constant;
 
 /**
  * <h1>常量定义</h1>
- * Created by Qinyi.
  */
 public class Constants {
 

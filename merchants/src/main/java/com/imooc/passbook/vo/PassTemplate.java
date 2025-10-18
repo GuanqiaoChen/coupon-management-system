@@ -8,38 +8,39 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-/**<h1>Define mandatory coupon info</h1>
+/**
+ * <h1>Define mandatory coupon info</h1>
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PassTemplate {
 
-    /** Merchant ID */
+    // Merchant ID 
     private Integer id;
 
-    /** Coupon title */
+    // Coupon title 
     private String title;
 
-    /** Coupon summary */
+    // Coupon summary 
     private String summary;
 
-    /** Coupon description */
+    // Coupon description 
     private String desc;
 
-    /** Max number of coupons */
+    // Max number of coupons 
     private Long limit;
 
-    /** If it is token coupon. For authenticate */
+    // If it is token coupon. For authenticate 
     private Boolean hasToken; // token stored in Redis Set. Get from there
 
-    /** Coupon background color */
+    // Coupon background color 
     private Integer background;
 
-    /** Coupon start date */
+    // Coupon start date 
     private Date start;
 
-    /** Coupon expired date */
+    // Coupon expired date 
     private Date end;
 
     /**

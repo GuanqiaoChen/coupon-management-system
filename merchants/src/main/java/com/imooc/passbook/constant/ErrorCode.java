@@ -13,10 +13,10 @@ public enum ErrorCode {
     EMPTY_ADDRESS(5, "merchant address is empty"),
     MERCHANTS_NOT_EXIST(6, "merchant does not exist"),;
 
-    /** Error code */
+    // Error code 
     private Integer code;
 
-    /** Error description */
+    // Error description 
     private String desc;
 
     ErrorCode(Integer code, String desc) {
