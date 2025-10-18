@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class AuthCheckInterceptor implements HandlerInterceptor {
 
+    // Pre-handle function to check the token
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest,
                              HttpServletResponse httpServletResponse, Object o) throws Exception {

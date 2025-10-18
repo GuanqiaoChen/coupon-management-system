@@ -11,13 +11,16 @@ import javax.annotation.Resource;
 @SpringBootApplication
 public class MerchantsApplication extends WebMvcConfigurerAdapter {
 
+	// Inject the intercepter
 	@Resource
 	private AuthCheckInterceptor authCheckInterceptor;
 
+	// Main function
 	public static void main(String[] args) {
 		SpringApplication.run(MerchantsApplication.class, args);
 	}
 
+	// Configure the intercepter
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 

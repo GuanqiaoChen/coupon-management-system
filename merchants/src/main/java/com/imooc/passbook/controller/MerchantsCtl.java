@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/merchants")
 public class MerchantsCtl {
 
-    /** Merchant service interface */
+    // Inject the merchant service
     private final IMerchantsServ merchantsServ;
 
     @Autowired
@@ -31,6 +31,7 @@ public class MerchantsCtl {
         this.merchantsServ = merchantsServ;
     }
 
+    // Create merchant
     @ResponseBody
     @PostMapping("/create")
     public Response createMerchants(@RequestBody CreateMerchantsRequest request) {
@@ -39,6 +40,7 @@ public class MerchantsCtl {
         return merchantsServ.createMerchants(request);
     }
 
+    // Build merchant info based on ID
     @ResponseBody
     @GetMapping("/{id}")
     public Response buildMerchantsInfo(@PathVariable Integer id) {
