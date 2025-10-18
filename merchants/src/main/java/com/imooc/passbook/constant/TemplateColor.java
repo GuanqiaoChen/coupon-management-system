@@ -1,18 +1,18 @@
 package com.imooc.passbook.constant;
 
 /**
- * Created by Qinyi.
+ * Background colors for the coupon template
  */
 public enum TemplateColor {
 
-    RED(1, "红色"),
-    GREEN(2, "绿色"),
-    BLUE(3, "蓝色");
+    RED(1, "red"),
+    GREEN(2, "green"),
+    BLUE(3, "blue");
 
-    /** 颜色代码 */
+    /** color code */
     private Integer code;
 
-    /** 颜色描述 */
+    /** color description */
     private String color;
 
     TemplateColor(Integer code, String color) {

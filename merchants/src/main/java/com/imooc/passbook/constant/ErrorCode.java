@@ -1,23 +1,22 @@
 package com.imooc.passbook.constant;
 
 /**
- * <h2>错误码枚举定义</h2>
- * Created by Qinyi.
+ * <h2>definition for error code</h2>
  */
 public enum ErrorCode {
 
     SUCCESS(0, ""),
-    DUPLICATE_NAME(1, "商户名称重复"),
-    EMPTY_LOGO(2, "商户 logo 为空"),
-    EMPTY_BUSINESS_LICENSE(3, "商户营业执照为空"),
-    ERROR_PHONE(4, "商户联系电话错误"),
-    EMPTY_ADDRESS(5, "商户地址为空"),
-    MERCHANTS_NOT_EXIST(6, "商户不存在");
+    DUPLICATE_NAME(1, "merchant name already exists"),
+    EMPTY_LOGO(2, "merchant logo is empty"),
+    EMPTY_BUSINESS_LICENSE(3, "business license is empty"),
+    ERROR_PHONE(4, "contact phone is error"),
+    EMPTY_ADDRESS(5, "merchant address is empty"),
+    MERCHANTS_NOT_EXIST(6, "merchant does not exist"),;
 
-    /** 错误码 */
+    /** error code */
     private Integer code;
 
-    /** 错误描述 */
+    /** error description */
     private String desc;
 
     ErrorCode(Integer code, String desc) {

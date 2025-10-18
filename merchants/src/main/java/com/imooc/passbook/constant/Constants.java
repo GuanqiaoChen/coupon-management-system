@@ -1,17 +1,18 @@
 package com.imooc.passbook.constant;
 
 /**
- * <h1>普通(通用)常量定义</h1>
- * Created by Qinyi.
+ * <h1>definition for general constants</h1>
  */
 public class Constants {
 
-    /** 商户优惠券投放的 Kafka Topic */
+    /** Kafka Topic for merchants to pass coupon*/
     public static final String TEMPLATE_TOPIC = "merchants-template";
 
-    /** token string */
+    /** token string (key) to authenticate merchants
+     * assume we use a fixed token for merchants' authentication
+    */
     public static final String TOKEN_STRING = "token";
 
-    /** token info */
+    /** token info (value) to authenticate merchants */
     public static final String TOKEN = "imooc-passbook-merchants";
 }
