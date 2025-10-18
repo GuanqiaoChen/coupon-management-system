@@ -8,31 +8,30 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * <h2>创建商户请求对象</h2>
- * Created by Qinyi.
+ * <h2>Create merchants request</h2>
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateMerchantsRequest {
 
-    /** 商户名称 */
+    /** Merchant name */
     private String name;
 
-    /** 商户 logo */
+    /** Merchant logo */
     private String logoUrl;
 
-    /** 商户营业执照 */
+    /** Business lisence logo */
     private String businessLicenseUrl;
 
-    /** 商户联系电话 */
+    /** Contact phone */
     private String phone;
 
-    /** 商户地址 */
+    /** Address */
     private String address;
 
     /**
-     * <h2>验证请求的有效性</h2>
+     * <h2>Check request</h2>
      * @param merchantsDao {@link MerchantsDao}
      * @return {@link ErrorCode}
      * */
@@ -62,7 +61,7 @@ public class CreateMerchantsRequest {
     }
 
     /**
-     * <h2>将请求对象转换为商户对象</h2>
+     * <h2>Transit request object to merchant object</h2>
      * @return {@link Merchants}
      * */
     public Merchants toMerchants() {
