@@ -12,14 +12,13 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 /**
- * <h1>消费 Kafka 中的 PassTemplate</h1>
- * Created by Qinyi.
+ * <h1>Consume Kafka PassTemplate</h1>
  */
-@Slf4j
+@Slf4j 
 @Component
 public class ConsumePassTemplate {
 
-    /** pass 相关的 HBase 服务 */
+    // Destination service for PassTemplate
     private final IHBasePassService passService;
 
     @Autowired
@@ -27,6 +26,11 @@ public class ConsumePassTemplate {
         this.passService = passService;
     }
 
+    /**
+     * Kafka Listener
+     * Payload PassTemplate from kafka and drop to HBase
+     * Header info: key, partition, topic
+     */
     @KafkaListener(topics = {Constants.TEMPLATE_TOPIC})
     public void receive(@Payload String passTemplate,
                         @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key,
@@ -36,14 +40,16 @@ public class ConsumePassTemplate {
         log.info("Consumer Receive PassTemplate: {}", passTemplate);
 
         PassTemplate pt;
-
+        
+        /** Parse PassTemplate from kafka*/
         try {
             pt = JSON.parseObject(passTemplate, PassTemplate.class);
         } catch (Exception ex) {
-            log.error("Parse PassTemplate Error: {}", ex.getMessage());
+            log.error("Parse PassTemplate Error: {}", ex.getMessage()); // Parsing error
             return;
         }
 
+        // Drop PassTemplate to HBase
         log.info("DropPassTemplateToHBase: {}", passService.dropPassTemplateToHBase(pt));
     }
 }

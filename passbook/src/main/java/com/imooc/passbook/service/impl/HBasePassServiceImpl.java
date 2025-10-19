@@ -15,14 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * <h1>Pass HBase 服务</h1>
- * Created by Qinyi.
+ * <h1>Drop PassTemplate to HBase Service Implementation</h1>
  */
 @Slf4j
 @Service
 public class HBasePassServiceImpl implements IHBasePassService {
 
-    /** HBase 客户端 */
+    // HBase client using spring boot starter
     private final HbaseTemplate hbaseTemplate;
 
     @Autowired
@@ -38,7 +37,12 @@ public class HBasePassServiceImpl implements IHBasePassService {
         }
 
         String rowKey = RowKeyGenUtil.genPassTemplateRowKey(passTemplate);
-
+        
+        /**
+         * Check if the rowKey already exists in HBase
+         * If exists, return false
+         * If not, write the PassTemplate to HBase
+         */
         try {
             if (hbaseTemplate.getConnection().getTable(TableName.valueOf(Constants.PassTemplateTable.TABLE_NAME))
                     .exists(new Get(Bytes.toBytes(rowKey)))) {
@@ -50,6 +54,10 @@ public class HBasePassServiceImpl implements IHBasePassService {
             return false;
         }
 
+        /**
+         * Write PassTemplate to HBase
+         * Put object that represents a row for HBase
+         */
         Put put = new Put(Bytes.toBytes(rowKey));
 
         put.addColumn(
@@ -99,6 +107,7 @@ public class HBasePassServiceImpl implements IHBasePassService {
                 Bytes.toBytes(DateFormatUtils.ISO_DATE_FORMAT.format(passTemplate.getEnd()))
         );
 
+        // Save to HBase
         hbaseTemplate.saveOrUpdate(Constants.PassTemplateTable.TABLE_NAME, put);
 
         return true;
