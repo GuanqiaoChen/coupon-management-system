@@ -8,10 +8,10 @@ public enum FeedbackType {
     PASS("pass", "For coupon feedback"),
     APP("app", "For app feedback");
 
-    /** Feedback code */
+    // Feedback code 
     private String code;
 
-    /** Feedback desciption */
+    // Feedback desciption 
     private String desc;
 
     FeedbackType(String code, String desc) {

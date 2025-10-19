@@ -6,18 +6,17 @@ import lombok.extern.slf4j.Slf4j;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * <h1>日志生成器</h1>
- * Created by Qinyi.
+ * <h1>Log generator</h1>
  */
 @Slf4j
 public class LogGenerator {
 
     /**
-     * <h2>生成 log</h2>
-     * @param request {@link HttpServletRequest}
-     * @param userId 用户 id
-     * @param action 日志类型
-     * @param info 日志信息, 可以是 null
+     * <h2>Generate log</h2>
+     * @param request {@link HttpServletRequest}. Want to get user IP from it
+     * @param userId User id
+     * @param action User action
+     * @param info Log info. Can be null
      * */
     public static void genLog(HttpServletRequest request, Long userId, String action, Object info) {
 

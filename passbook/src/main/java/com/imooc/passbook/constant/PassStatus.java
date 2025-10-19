@@ -9,10 +9,10 @@ public enum PassStatus {
     USED(2, "used"),
     ALL(3, "all");
 
-    /** Status code */
+    // Status code 
     private Integer code;
 
-    /** Status description */
+    // Status description 
     private String desc;
 
     PassStatus(Integer code, String desc) {

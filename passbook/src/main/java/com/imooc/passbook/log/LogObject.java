@@ -5,26 +5,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * <h1>日志对象</h1>
- * Created by Qinyi.
+ * <h1>Log object</h1>
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class LogObject {
 
-    /** 日志动作类型 */
+    // Log action
     private String action;
 
-    /** 用户 id */
+    // User id
     private Long userId;
 
-    /** 当前时间戳 */
+    // Timestamp
     private Long timestamp;
 
-    /** 客户端 ip 地址 */
+    // User IP
     private String remoteIp;
 
-    /** 日志信息 */
+    // Log info
     private Object info = null;
 }
