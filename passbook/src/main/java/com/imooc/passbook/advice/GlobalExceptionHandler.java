@@ -8,13 +8,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * <h1>全局异常处理</h1>
- * Created by Qinyi.
+ * <h1>Global Exception Handler</h1>
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ResponseBody
+    @ResponseBody // RESTful response
     @ExceptionHandler(value = Exception.class)
     public ErrorInfo<String> errorHandler(HttpServletRequest request, Exception ex) throws Exception {
 
@@ -22,7 +21,7 @@ public class GlobalExceptionHandler {
 
         info.setCode(ErrorInfo.ERROR);
         info.setMessage(ex.getMessage());
-        info.setData("Do Not Have Return Data");
+        info.setData("Do Not Have Return Data"); 
         info.setUrl(request.getRequestURL().toString());
 
         return info;

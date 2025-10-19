@@ -7,20 +7,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
- * <h1>RowKey 生成器工具类</h1>
- * Created by Qinyi.
+ * <h1>RowKey generator</h1>
  */
 @Slf4j
 public class RowKeyGenUtil {
 
     /**
-     * <h2>根据提供的 PassTemplate 对象生成 RowKey</h2>
+     * <h2>Generate PassTemplate RowKey</h2>
      * @param passTemplate {@link PassTemplate}
      * @return String RowKey
      * */
     public static String genPassTemplateRowKey(PassTemplate passTemplate) {
 
         String passInfo = String.valueOf(passTemplate.getId()) + "_" + passTemplate.getTitle();
+        // MD5 encryption to make RowKey more uniform
         String rowKey = DigestUtils.md5Hex(passInfo);
         log.info("GenPassTemplateRowKey: {}, {}", passInfo, rowKey);
 
@@ -41,12 +41,19 @@ public class RowKeyGenUtil {
     }
 
     /**
-     * <h2>根据 Feedback 构造 RowKey</h2>
+     * <h2>Generate Feedback RowKey</h2>
      * @param feedback {@link Feedback}
      * @return String RowKey
      * */
     public static String genFeedbackRowKey(Feedback feedback) {
 
+        /* Feedback RowKey = reversed(userId) + inverse(timestamp)
+         * Why reversed userId? To make it more uniform in HBase region distribution
+         * Since userId is increasing, if we don't reverse it, 
+         * all data will go to the same region as they have the same prefix
+         * Why inverse timestamp? To make the latest feedback appear first when scanning
+         * These two parts ensure the HBase performance and user experience
+        */ 
         return new StringBuilder(String.valueOf(feedback.getUserId())).reverse().toString() +
                 (Long.MAX_VALUE - System.currentTimeMillis());
     }
