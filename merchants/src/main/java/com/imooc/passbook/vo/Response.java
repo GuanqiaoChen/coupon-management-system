@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * <h1>General response</h1>
+ * <h1>General Response in Controller</h1>
  * Should be improved in the future
  * Add extended response types
  * Add generic support

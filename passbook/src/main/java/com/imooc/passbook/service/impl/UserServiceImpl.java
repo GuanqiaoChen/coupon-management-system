@@ -18,17 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <h1>创建用户服务实现</h1>
- * Created by Qinyi.
+ * <h1>Create User Service Implementation</h1>
  */
 @Slf4j
 @Service
 public class UserServiceImpl implements IUserService {
 
-    /** HBase 客户端 */
+    /** HBase client */
     private final HbaseTemplate hbaseTemplate;
 
-    /** redis 客户端 */
+    /** Redis client */
     private final StringRedisTemplate redisTemplate;
 
     @Autowired
@@ -37,6 +36,7 @@ public class UserServiceImpl implements IUserService {
         this.redisTemplate = redisTemplate;
     }
 
+    /** Based on HBase user table to create user */
     @Override
     public Response createUser(User user) throws Exception {
 
@@ -52,6 +52,11 @@ public class UserServiceImpl implements IUserService {
         Long curCount = redisTemplate.opsForValue().increment(Constants.USE_COUNT_REDIS_KEY, 1);
         Long userId = genUserId(curCount);
 
+        /** 
+         * Mutation data to be saved to HBase 
+         * Put object that represents a row for HBase
+         * Mutation interface is the super interface of Put
+         * */
         List<Mutation> datas = new ArrayList<Mutation>();
         Put put = new Put(Bytes.toBytes(userId));
 
@@ -72,10 +77,10 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * <h2>生成 userId</h2>
-     * @param prefix 当前用户数
-     * @return 用户 id
-     * */
+     * <h2>Generate User Id</h2>
+     * @param prefix Current user count prefix
+     * @return User Id
+     */
     private Long genUserId(Long prefix) {
 
         String suffix = RandomStringUtils.randomNumeric(5);
