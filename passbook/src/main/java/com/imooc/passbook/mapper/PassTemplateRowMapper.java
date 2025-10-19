@@ -9,11 +9,12 @@ import org.apache.hadoop.hbase.util.Bytes;
 
 
 /**
- * <h1>HBase PassTemplate Row To PassTemplate Object</h1>
- * Created by Qinyi.
+ * <h1>ORM: HBase PassTemplate Row To PassTemplate Object</h1>
+ * HBase starter RowMapper implementation for PassTemplate
  */
 public class PassTemplateRowMapper implements RowMapper<PassTemplate> {
 
+    // Column family B
     private static byte[] FAMILY_B = Constants.PassTemplateTable.FAMILY_B.getBytes();
     private static byte[] ID = Constants.PassTemplateTable.ID.getBytes();
     private static byte[] TITLE = Constants.PassTemplateTable.TITLE.getBytes();
@@ -22,16 +23,19 @@ public class PassTemplateRowMapper implements RowMapper<PassTemplate> {
     private static byte[] HAS_TOKEN = Constants.PassTemplateTable.HAS_TOKEN.getBytes();
     private static byte[] BACKGROUND = Constants.PassTemplateTable.BACKGROUND.getBytes();
 
+    // Column family C
     private static byte[] FAMILY_C = Constants.PassTemplateTable.FAMILY_C.getBytes();
     private static byte[] LIMIT = Constants.PassTemplateTable.LIMIT.getBytes();
     private static byte[] START = Constants.PassTemplateTable.START.getBytes();
     private static byte[] END = Constants.PassTemplateTable.END.getBytes();
 
+    // Map HBase Result to PassTemplate Object
     @Override
     public PassTemplate mapRow(Result result, int rowNum) throws Exception {
 
         PassTemplate passTemplate = new PassTemplate();
 
+        // Base Info
         passTemplate.setId(Bytes.toInt(result.getValue(FAMILY_B, ID)));
         passTemplate.setTitle(Bytes.toString(result.getValue(FAMILY_B, TITLE)));
         passTemplate.setSummary(Bytes.toString(result.getValue(FAMILY_B, SUMMARY)));
@@ -39,6 +43,7 @@ public class PassTemplateRowMapper implements RowMapper<PassTemplate> {
         passTemplate.setHasToken(Bytes.toBoolean(result.getValue(FAMILY_B, HAS_TOKEN)));
         passTemplate.setBackground(Bytes.toInt(result.getValue(FAMILY_B, BACKGROUND)));
 
+        // Constraint Info
         String[] patterns = new String[] {"yyyy-MM-dd"};
 
         passTemplate.setLimit(Bytes.toLong(result.getValue(FAMILY_C, LIMIT)));

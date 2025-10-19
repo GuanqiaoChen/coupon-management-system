@@ -7,11 +7,12 @@ import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.util.Bytes;
 
 /**
- * <h1>Feedback HBase Row To Object</h1>
- * Created by Qinyi.
+ * <h1>ORM: Feedback HBase Row To Object</h1>
+ * HBase starter RowMapper implementation for Feedback
  */
 public class FeedbackRowMapper implements RowMapper<Feedback> {
 
+    // Column family I
     private static byte[] FAMILY_I = Constants.Feedback.FAMILY_I.getBytes();
     private static byte[] USER_ID = Constants.Feedback.USER_ID.getBytes();
     private static byte[] TYPE = Constants.Feedback.TYPE.getBytes();
@@ -21,6 +22,7 @@ public class FeedbackRowMapper implements RowMapper<Feedback> {
     @Override
     public Feedback mapRow(Result result, int rowNum) throws Exception {
 
+        // Info
         Feedback feedback = new Feedback();
         feedback.setUserId(Bytes.toLong(result.getValue(FAMILY_I, USER_ID)));
         feedback.setType(Bytes.toString(result.getValue(FAMILY_I, TYPE)));

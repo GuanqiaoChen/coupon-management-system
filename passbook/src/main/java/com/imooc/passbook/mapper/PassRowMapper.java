@@ -8,11 +8,12 @@ import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.util.Bytes;
 
 /**
- * <h1>HBase Pass Row To Pass Object</h1>
- * Created by Qinyi.
+ * <h1>ORM: HBase Pass Row To Pass Object</h1>
+ * HBase starter RowMapper implementation for Pass
  */
 public class PassRowMapper implements RowMapper<Pass> {
 
+    // Column family I
     private static byte[] FAMILY_I = Constants.PassTable.FAMILY_I.getBytes();
     private static byte[] USER_ID = Constants.PassTable.USER_ID.getBytes();
     private static byte[] TEMPLATE_ID = Constants.PassTable.TEMPLATE_ID.getBytes();
@@ -25,13 +26,16 @@ public class PassRowMapper implements RowMapper<Pass> {
 
         Pass pass = new Pass();
 
+        // Info
         pass.setUserId(Bytes.toLong(result.getValue(FAMILY_I, USER_ID)));
         pass.setTemplateId(Bytes.toString(result.getValue(FAMILY_I, TEMPLATE_ID)));
         pass.setToken(Bytes.toString(result.getValue(FAMILY_I, TOKEN)));
 
+        // Assigned date
         String[] patterns = new String[] {"yyyy-DD-dd"};
         pass.setAssignedDate(DateUtils.parseDate(Bytes.toString(result.getValue(FAMILY_I, ASSIGNED_DATE)), patterns));
 
+        // Consumption date
         String conDateStr = Bytes.toString(result.getValue(FAMILY_I, CON_DATE));
         if (conDateStr.equals("-1")) {
             pass.setConDate(null);
