@@ -7,29 +7,28 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
- * <h2>用户领取的优惠券</h2>
- * Created by Qinyi.
+ * <h2>Pass object that user has</h2>
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Pass {
 
-    /** 用户 id */
+    // User ID
     private Long userId;
 
-    /** pass 在 HBase 中的 RowKey */
+    // Pass in HBase RowKey
     private String rowKey;
 
-    /** PassTemplate 在 HBase 中的 RowKey */
+    // PassTemplate ID 
     private String templateId;
 
-    /** 优惠券 token, 有可能是 null, 则填充 -1 */
+    // Coupon token. If no token, set to "-1"
     private String token;
 
-    /** 领取日期 */
+    // Assigned date
     private Date assignedDate;
 
-    /** 消费日期, 不为空代表已经被消费了 */
+    // Consumption date. If not consumed, set to null
     private Date conDate;
 }

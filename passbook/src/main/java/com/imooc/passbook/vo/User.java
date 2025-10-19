@@ -5,21 +5,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * <h1>User Object</h1>
- * Created by Qinyi.
+ * <h1>User object</h1>
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
 
-    /** 用户 id */
+    // User id. Primary Key
     private Long id;
 
-    /** 用户基本信息 */
+    /* First column family in HBase User table
+     * User basic information
+    */
     private BaseInfo baseInfo;
 
-    /** 用户额外信息 */
+    /* Second column family in HBase User table
+     * User other information
+    */
     private OtherInfo otherInfo;
 
     @Data

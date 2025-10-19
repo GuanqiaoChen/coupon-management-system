@@ -7,38 +7,37 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
- * <h1>投放的优惠券对象定义</h1>
- * Created by Qinyi.
+ * <h1>PassTemplate object</h1>
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PassTemplate {
 
-    /** 所属商户 id */
+    // Merchant ID. Primary Key
     private Integer id;
 
-    /** 优惠券标题 */
+    // Coupon title
     private String title;
 
-    /** 优惠券摘要 */
+    // Coupon summary
     private String summary;
 
-    /** 优惠券详细信息 */
+    // Coupon description
     private String desc;
 
-    /** 最大个数限制 */
+    // Max number of coupons
     private Long limit;
 
-    /** 优惠券是否有 Token, 用于商户核销 */
+    // If it is token coupon. For authenticate
     private Boolean hasToken;
 
-    /** 优惠券背景色 */
+    // Coupon background color
     private Integer background;
 
-    /** 优惠券开始时间 */
+    // Coupon start time
     private Date start;
 
-    /** 优惠券结束时间 */
+    // Coupon expired time
     private Date end;
 }
