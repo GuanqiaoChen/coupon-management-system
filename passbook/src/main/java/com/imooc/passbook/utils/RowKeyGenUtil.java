@@ -28,7 +28,7 @@ public class RowKeyGenUtil {
     }
 
     /**
-     * <h2>根据提供的领取优惠券请求生成 RowKey, 只可以在领取优惠券的时候使用</h2>
+     * <h2>Generate Pass RowKey when user gains a pass</h2>
      * Pass RowKey = reversed(userId) + inverse(timestamp) + PassTemplate RowKey
      * @param request {@link GainPassTemplateRequest}
      * @return String RowKey
