@@ -4,7 +4,7 @@ import com.imooc.passbook.vo.Response;
 import com.imooc.passbook.vo.User;
 
 /**
- * <h1>Create User Service Interface</h1>
+ * <h1>User Service Interface: Create</h1>
  */
 
 public interface IUserService {

@@ -18,7 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <h1>Create User Service Implementation</h1>
+ * <h1>Create User Service Implement</h1>
+ * User stored in HBase
+ * Redis is used to generate user id
  */
 @Slf4j
 @Service

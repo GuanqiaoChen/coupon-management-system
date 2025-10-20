@@ -19,14 +19,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * <h1>评论功能实现</h1>
- * Created by Qinyi.
+ * <h1>Feedback Service Implement</h1>
+ * Feedback stored in HBase
  */
 @Slf4j
 @Service
 public class FeedbackServiceImpl implements IFeedbackService {
 
-    /** HBase 客户端 */
+    /** HBase client */
     private final HbaseTemplate hbaseTemplate;
 
     @Autowired
@@ -42,6 +42,7 @@ public class FeedbackServiceImpl implements IFeedbackService {
             return Response.failure("Feedback Error");
         }
 
+        /** genFeedbackRowKey is optimized for HBase performance and user experience */
         Put put = new Put(Bytes.toBytes(RowKeyGenUtil.genFeedbackRowKey(feedback)));
 
         put.addColumn(
@@ -67,12 +68,19 @@ public class FeedbackServiceImpl implements IFeedbackService {
 
         hbaseTemplate.saveOrUpdate(Constants.Feedback.TABLE_NAME, put);
 
+        /** Return success without any data */
         return Response.success();
     }
 
+    /** Get feedback from HBase */
     @Override
     public Response getFeedback(Long userId) {
 
+        /**
+         * Recall feedback RowKey = reversed(userId) + inverse(timestamp)
+         * Scan feedback by userId prefix
+         * Use FeedbackRowMapper to map HBase row to Feedback object
+         */
         byte[] reverseUserId = new StringBuilder(String.valueOf(userId)).reverse().toString().getBytes();
         Scan scan = new Scan();
         scan.setFilter(new PrefixFilter(reverseUserId));

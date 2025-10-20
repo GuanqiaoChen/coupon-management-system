@@ -5,17 +5,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * <h1>用户领取优惠券的请求对象</h1>
- * Created by Qinyi.
+ * <h1>Gain PassTemplate Request</h1>
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class GainPassTemplateRequest {
 
-    /** 用户 id */
+    /** User id */
     private Long userId;
 
-    /** PassTemplate 对象 */
+    /** PassTemplate */
     private PassTemplate passTemplate;
 }

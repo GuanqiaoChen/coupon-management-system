@@ -6,20 +6,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * <h1>用户领取的优惠券信息</h1>
- * Created by Qinyi.
+ * <h1>Pass Info</h1>
+ * Pass is the coupon that user has acquired
+ * PassTemplate is the template of the coupon
+ * Merchants is the merchant who issues the coupon
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PassInfo {
 
-    /** 优惠券 */
+    /** Coupon */
     private Pass pass;
 
-    /** 优惠券模板 */
+    /** Coupon template */
     private PassTemplate passTemplate;
 
-    /** 优惠券对应的商户 */
+    /** Corresponding merchant */
     private Merchants merchants;
 }

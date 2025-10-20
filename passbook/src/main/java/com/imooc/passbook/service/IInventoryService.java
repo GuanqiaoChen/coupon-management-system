@@ -3,14 +3,15 @@ package com.imooc.passbook.service;
 import com.imooc.passbook.vo.Response;
 
 /**
- * <h1>获取库存信息: 只返回用户没有领取的, 即优惠券库存功能实现接口定义</h1>
- * Created by Qinyi.
+ * <h1>Inventory Service Interface</h1>
+ * PassTemplate that user is eligible to acquire
+ * Aka Inventory in merchant's perspective
  */
 public interface IInventoryService {
 
     /**
-     * <h2>获取库存信息</h2>
-     * @param userId 用户 id
+     * <h2>Get Inventory Info</h2>
+     * @param userId User id as each user has different inventory
      * @return {@link Response}
      * */
     Response getInventoryInfo(Long userId) throws Exception;

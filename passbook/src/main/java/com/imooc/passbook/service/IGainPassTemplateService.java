@@ -4,13 +4,12 @@ import com.imooc.passbook.vo.GainPassTemplateRequest;
 import com.imooc.passbook.vo.Response;
 
 /**
- * <h1>用户领取优惠券功能实现</h1>
- * Created by Qinyi.
+ * <h1>Gain PassTemplate Service Interface</h1>
  */
 public interface IGainPassTemplateService {
 
     /**
-     * <h2>用户领取优惠券</h2>
+     * <h2>Gain PassTemplate</h2>
      * @param request {@link GainPassTemplateRequest}
      * @return {@link Response}
      * */
