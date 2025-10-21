@@ -10,7 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * <h1>Redis Client Test</h1>
- * Created by Qinyi.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest

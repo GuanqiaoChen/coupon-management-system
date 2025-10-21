@@ -27,7 +27,6 @@ import java.util.List;
 
 /**
  * <h1>User Gain Pass Template Service Implementation</h1>
- * Created by Qinyi.
  */
 @Slf4j
 @Service

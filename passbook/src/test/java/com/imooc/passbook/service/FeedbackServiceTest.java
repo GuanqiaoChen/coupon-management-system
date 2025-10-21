@@ -11,7 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * <h1>User Feedback Service Test</h1>
- * Created by Qinyi.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest

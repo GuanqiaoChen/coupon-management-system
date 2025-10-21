@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * <h1>Passbook Rest Controller</h1>
- * Created by Qinyi.
  */
 @Slf4j
 @RestController

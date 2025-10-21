@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * <h1>Create User Service</h1>
- * Created by Qinyi.
  */
 @Slf4j
 @RestController
