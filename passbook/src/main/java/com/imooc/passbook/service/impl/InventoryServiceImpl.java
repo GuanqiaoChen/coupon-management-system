@@ -32,19 +32,27 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * <h1>获取库存信息, 只返回用户没有领取的</h1>
- * Created by Qinyi.
+ * <h1>Inventory Service Implement</h1>
+ * PassTemplate that user is eligible to acquire
+ * Aka Inventory in merchant's perspective
+ * Which means the available PassTemplate for user to get
+ * Since each PassTemplateInfo contains PassTemplate and Merchants info
+ * we need to inject Merchants Dao first
  */
 @Slf4j
 @Service
 public class InventoryServiceImpl implements IInventoryService {
 
-    /** Hbase 客户端 */
+    /** Hbase client */
     private final HbaseTemplate hbaseTemplate;
 
-    /** Merchants Dao 接口 */
+    /** Merchants Dao Interface */
     private final MerchantsDao merchantsDao;
 
+    /*
+     * UserPass Service Interface 
+     * To get user's acquired PassTemplate list
+     */
     private final IUserPassService userPassService;
 
     @Autowired
@@ -60,9 +68,11 @@ public class InventoryServiceImpl implements IInventoryService {
     @SuppressWarnings("unchecked")
     public Response getInventoryInfo(Long userId) throws Exception {
 
+        // Get all acquired PassTemplate by userId
         Response allUserPass = userPassService.getUserAllPassInfo(userId);
         List<PassInfo> passInfos = (List<PassInfo>) allUserPass.getData();
 
+        // Build excludeIds list that user has already acquired
         List<PassTemplate> excludeObject = passInfos.stream().map(PassInfo::getPassTemplate)
                 .collect(Collectors.toList());
         List<String> excludeIds = new ArrayList<>();
@@ -70,19 +80,26 @@ public class InventoryServiceImpl implements IInventoryService {
         excludeObject.forEach(e -> excludeIds.add(
                 RowKeyGenUtil.genPassTemplateRowKey(e)));
 
+        /* 
+         * Get available PassTemplate that user can acquire
+         * We have put all validation logic in getAvailablePassTemplate method
+         * Then use buildPassTemplateInfo to build PassTemplateInfo list
+         */ 
         return new Response(new InventoryResponse(userId,
                 buildPassTemplateInfo(getAvailablePassTemplate(excludeIds))));
     }
 
     /**
-     * <h2>获取系统中可用的优惠券</h2>
-     * @param excludeIds 需要排除的优惠券 ids
+     * <h2>Get Available PassTemplate</h2>
+     * @param excludeIds excludeIds: The passTemplate id list that user has already acquired
      * @return {@link PassTemplate}
      * */
     private List<PassTemplate> getAvailablePassTemplate(List<String> excludeIds) {
 
+        // Only need one condition to satisfy
         FilterList filterList = new FilterList(FilterList.Operator.MUST_PASS_ONE);
 
+        // limit > 0 || limit = -1
         filterList.addFilter(
                 new SingleColumnValueFilter(
                         Bytes.toBytes(Constants.PassTemplateTable.FAMILY_C),
@@ -103,18 +120,25 @@ public class InventoryServiceImpl implements IInventoryService {
         Scan scan = new Scan();
         scan.setFilter(filterList);
 
+        // Get all PassTemplate that satisfy the filter condition
         List<PassTemplate> validTemplates = hbaseTemplate.find(
                 Constants.PassTemplateTable.TABLE_NAME, scan, new PassTemplateRowMapper());
+
+
         List<PassTemplate> availablePassTemplates = new ArrayList<>();
 
+        // Filter the expired PassTemplate
         Date cur = new Date();
 
+        /** Iterate through validTemplates, exclude those in excludeIds, and check date validity */
         for (PassTemplate validTemplate : validTemplates) {
 
+            // Further exclude the PassTemplate that user has already acquired
             if (excludeIds.contains(RowKeyGenUtil.genPassTemplateRowKey(validTemplate))) {
                 continue;
             }
 
+            // Check if the PassTemplate is within the valid date range
             if (cur.getTime() >= validTemplate.getStart().getTime()
                     && cur.getTime() <= validTemplate.getEnd().getTime()) {
                 availablePassTemplates.add(validTemplate);
@@ -125,24 +149,33 @@ public class InventoryServiceImpl implements IInventoryService {
     }
 
     /**
-     * <h2>构造优惠券的信息</h2>
+     * <h2>Build PassTemplateInfo</h2>
      * @param passTemplates {@link PassTemplate}
      * @return {@link PassTemplateInfo}
+     * Since each PassTemplateInfo contains PassTemplate and Merchants info
+     * we need to build Merchants map first
      * */
     private
     List<PassTemplateInfo> buildPassTemplateInfo(List<PassTemplate> passTemplates) {
 
+        /** Build Merchants Map */
         Map<Integer, Merchants> merchantsMap = new HashMap<>();
+
+        // Get all merchants ids
         List<Integer> merchantsIds = passTemplates.stream().map(
                 PassTemplate::getId
         ).collect(Collectors.toList());
+
+        // Get merchants info and build the map
         List<Merchants> merchants = merchantsDao.findByIdIn(merchantsIds);
         merchants.forEach(m -> merchantsMap.put(m.getId(), m));
 
+        /** Build PassTemplateInfo */
         List<PassTemplateInfo> result = new ArrayList<>(passTemplates.size());
 
         for (PassTemplate passTemplate : passTemplates) {
 
+            // Get merchants info from the map
             Merchants mc = merchantsMap.getOrDefault(passTemplate.getId(),
                     null);
             if (null == mc) {
@@ -150,6 +183,7 @@ public class InventoryServiceImpl implements IInventoryService {
                 continue;
             }
 
+            // Build PassTemplateInfo with PassTemplate and Merchants info
             result.add(new PassTemplateInfo(passTemplate, mc));
         }
 

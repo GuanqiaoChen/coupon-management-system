@@ -44,7 +44,7 @@ import java.util.stream.Collectors;
 @Service
 public class UserPassServiceImpl implements IUserPassService {
 
-    /** Hbase 客户端 */
+    /** Hbase client */
     private final HbaseTemplate hbaseTemplate;
 
     /** Merchants Dao */
@@ -74,7 +74,12 @@ public class UserPassServiceImpl implements IUserPassService {
     @Override
     public Response userUsePass(Pass pass) {
 
-        // 根据 userId 构造行键前缀
+        /*
+         * Build row prefix to get specific user pass
+         * filter by template id and unused status
+         * then we can make sure that user can only use his/her own pass
+         * and can only use unused pass
+         */
         byte[] rowPrefix = Bytes.toBytes(new StringBuilder(
                 String.valueOf(pass.getUserId())).reverse().toString());
         Scan scan = new Scan();
@@ -95,6 +100,7 @@ public class UserPassServiceImpl implements IUserPassService {
 
         scan.setFilter(new FilterList(filters));
 
+        // Get Pass list from HBase
         List<Pass> passes = hbaseTemplate.find(Constants.PassTable.TABLE_NAME,
                 scan, new PassRowMapper());
 
@@ -106,6 +112,7 @@ public class UserPassServiceImpl implements IUserPassService {
         byte[] FAMILY_I = Constants.PassTable.FAMILY_I.getBytes();
         byte[] CON_DATE = Constants.PassTable.CON_DATE.getBytes();
 
+        // Update Pass's consume date to make it used
         List<Mutation> datas = new ArrayList<>();
         Put put = new Put(passes.get(0).getRowKey().getBytes());
         put.addColumn(FAMILY_I, CON_DATE,
@@ -115,6 +122,7 @@ public class UserPassServiceImpl implements IUserPassService {
 
         hbaseTemplate.saveOrUpdates(Constants.PassTable.TABLE_NAME, datas);
 
+        // Return success without any data
         return Response.success();
     }
 
