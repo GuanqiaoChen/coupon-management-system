@@ -24,13 +24,12 @@ import java.util.stream.Stream;
 
 /**
  * <h1>PassTemplate Token Upload</h1>
- * Created by Qinyi.
  */
 @Slf4j
 @Controller
 public class TokenUploadController {
 
-    /** redis 客户端 */
+    /** Redis client */
     private final StringRedisTemplate redisTemplate;
 
     @Autowired
@@ -84,15 +83,17 @@ public class TokenUploadController {
     }
 
     /**
-     * <h2>将 token 写入 redis</h2>
+     * <h2>Write token to Redis Set</h2>
      * @param path {@link Path}
      * @param key redis key
      * @return true/false
      * */
     private boolean writeTokenToRedis(Path path, String key) {
 
+        // Use set to avoid duplicate tokens
         Set<String> tokens;
 
+        // Read all lines from the file user uploaded to get tokens
         try(Stream<String> stream = Files.lines(path)) {
             tokens = stream.collect(Collectors.toSet());
         } catch (IOException ex) {
@@ -100,6 +101,17 @@ public class TokenUploadController {
             return false;
         }
 
+        /* 
+         * Write tokens to Redis Set with pipelined way
+         * Key format: passbook:token:{passTemplateId}
+         * Value: set of tokens
+         * We use pipelined way to improve the performance since local redis server
+         * can handle large number of requests per second
+         * However, when using redis cluster, 
+         * we need avoid pipeline cross multiple nodes
+         * since if too many commands are sent to different nodes,
+         * it will cause performance issue
+         */
         if (!CollectionUtils.isEmpty(tokens)) {
             redisTemplate.executePipelined((RedisCallback<Object>) connection -> {
                 for (String token : tokens) {
