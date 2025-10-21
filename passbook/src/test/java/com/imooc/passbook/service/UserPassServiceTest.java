@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * <h1>用户优惠券服务测试</h1>
+ * <h1>User Pass Service Test</h1>
  * Created by Qinyi.
  */
 @RunWith(SpringRunner.class)
@@ -23,12 +23,12 @@ public class UserPassServiceTest extends AbstractServiceTest {
 //        "data": [
 //        {
 //            "merchants": {
-//            "address": "北京市",
+//            "address": "Beijing",
 //                    "businessLicenseUrl": "www.imooc.com",
 //                    "id": 9,
 //                    "isAudit": true,
 //                    "logoUrl": "www.imooc.com",
-//                    "name": "慕课",
+//                    "name": "MOOC",
 //                    "phone": "1234567890"
 //        },
 //            "pass": {
@@ -39,14 +39,14 @@ public class UserPassServiceTest extends AbstractServiceTest {
 //        },
 //            "passTemplate": {
 //            "background": 2,
-//                    "desc": "详情: 慕课",
+//                    "desc": "Details: MOOC",
 //                    "end": 1529424000000,
 //                    "hasToken": true,
 //                    "id": 9,
 //                    "limit": 9998,
 //                    "start": 1527696000000,
-//                    "summary": "简介: 慕课",
-//                    "title": "慕课-2"
+//                    "summary": "Summary: MOOC",
+//                    "title": "MOOC-2"
 //        }
 //        }
 //  ],
@@ -74,12 +74,12 @@ public class UserPassServiceTest extends AbstractServiceTest {
 //        "data": [
 //        {
 //            "merchants": {
-//            "address": "北京市",
+//            "address": "Beijing",
 //                    "businessLicenseUrl": "www.imooc.com",
 //                    "id": 9,
 //                    "isAudit": true,
 //                    "logoUrl": "www.imooc.com",
-//                    "name": "慕课",
+//                    "name": "MOOC",
 //                    "phone": "1234567890"
 //        },
 //            "pass": {
@@ -90,14 +90,14 @@ public class UserPassServiceTest extends AbstractServiceTest {
 //        },
 //            "passTemplate": {
 //            "background": 2,
-//                    "desc": "详情: 慕课",
+//                    "desc": "Details: MOOC",
 //                    "end": 1529424000000,
 //                    "hasToken": true,
 //                    "id": 9,
 //                    "limit": 9998,
 //                    "start": 1527696000000,
-//                    "summary": "简介: 慕课",
-//                    "title": "慕课-2"
+//                    "summary": "Summary: MOOC",
+//                    "title": "MOOC-2"
 //        }
 //        }
 //  ],

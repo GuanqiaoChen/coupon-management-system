@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * <h1>创建用户服务</h1>
+ * <h1>Create User Service</h1>
  * Created by Qinyi.
  */
 @Slf4j
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/passbook")
 public class CreateUserController {
 
-    /** 创建用户服务 */
+    /** Create user service */
     private final IUserService userService;
 
     /** HttpServletRequest */
@@ -38,7 +38,7 @@ public class CreateUserController {
     }
 
     /**
-     * <h2>创建用户</h2>
+     * <h2>Create user</h2>
      * @param user {@link User}
      * @return {@link Response}
      * */

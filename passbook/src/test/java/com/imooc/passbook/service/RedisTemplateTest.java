@@ -9,7 +9,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * <h1>Redis 客户端测试</h1>
+ * <h1>Redis Client Test</h1>
  * Created by Qinyi.
  */
 @RunWith(SpringRunner.class)

@@ -26,17 +26,17 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * <h1>用户领取优惠券功能实现</h1>
+ * <h1>User Gain Pass Template Service Implementation</h1>
  * Created by Qinyi.
  */
 @Slf4j
 @Service
 public class GainPassTemplateServiceImpl implements IGainPassTemplateService {
 
-    /** HBase 客户端 */
+    /** HBase client */
     private final HbaseTemplate hbaseTemplate;
 
-    /** redis 客户端 */
+    /** Redis client */
     private final StringRedisTemplate redisTemplate;
 
     @Autowired
@@ -79,7 +79,7 @@ public class GainPassTemplateServiceImpl implements IGainPassTemplateService {
             return Response.failure("PassTemplate ValidTime Error!");
         }
 
-        // 减去优惠券的 limit
+        // Decrease the coupon limit
         if (passTemplate.getLimit() != -1) {
             List<Mutation> datas = new ArrayList<>();
             byte[] FAMILY_C = Constants.PassTemplateTable.FAMILY_C.getBytes();
@@ -94,7 +94,7 @@ public class GainPassTemplateServiceImpl implements IGainPassTemplateService {
                     datas);
         }
 
-        // 将优惠券保存到用户优惠券表
+        // Save the coupon to user coupon table
         if (!addPassForUser(request, passTemplate.getId(), passTemplateId)) {
             return Response.failure("GainPassTemplate Failure!");
         }
@@ -103,10 +103,10 @@ public class GainPassTemplateServiceImpl implements IGainPassTemplateService {
     }
 
     /**
-     * <h2>给用户添加优惠券</h2>
+     * <h2>Add coupon for user</h2>
      * @param request {@link GainPassTemplateRequest}
-     * @param merchantsId 商户 id
-     * @param passTemplateId 优惠券 id
+     * @param merchantsId merchant id
+     * @param passTemplateId coupon id
      * @return true/false
      * */
     private boolean addPassForUser(GainPassTemplateRequest request,
@@ -148,10 +148,10 @@ public class GainPassTemplateServiceImpl implements IGainPassTemplateService {
     }
 
     /**
-     * <h2>将已使用的 token 记录到文件中</h2>
-     * @param merchantsId 商户 id
-     * @param passTemplateId 优惠券 id
-     * @param token 分配的优惠券 token
+     * <h2>Record used token to file</h2>
+     * @param merchantsId merchant id
+     * @param passTemplateId coupon id
+     * @param token assigned coupon token
      * */
     private void recordTokenToFile(Integer merchantsId, String passTemplateId,
                                    String token) throws Exception {

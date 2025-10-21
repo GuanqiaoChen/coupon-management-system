@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * <h1>用户领取优惠券功能测试</h1>
+ * <h1>User Gain Pass Template Function Test</h1>
  * Created by Qinyi.
  */
 @RunWith(SpringRunner.class)
@@ -25,7 +25,7 @@ public class GainPassTemplaterServiceTest extends AbstractServiceTest {
 
         PassTemplate target = new PassTemplate();
         target.setId(9);
-        target.setTitle("慕课-2");
+        target.setTitle("MOOC-2");
         target.setHasToken(true);
 
         System.out.println(JSON.toJSONString(

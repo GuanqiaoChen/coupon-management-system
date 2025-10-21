@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * <h1>用户反馈服务测试</h1>
+ * <h1>User Feedback Service Test</h1>
  * Created by Qinyi.
  */
 @RunWith(SpringRunner.class)
@@ -27,7 +27,7 @@ public class FeedbackServiceTest extends AbstractServiceTest {
         appFeedback.setUserId(userId);
         appFeedback.setType(FeedbackType.APP.getCode());
         appFeedback.setTemplateId("-1");
-        appFeedback.setComment("慕课网学习分布式卡包应用！");
+        appFeedback.setComment("Learning distributed coupon management application on MOOC!");
 
         System.out.println(JSON.toJSONString(
                 feedbackService.createFeedback(appFeedback))
@@ -37,7 +37,7 @@ public class FeedbackServiceTest extends AbstractServiceTest {
         passFeedback.setUserId(userId);
         passFeedback.setType(FeedbackType.PASS.getCode());
         passFeedback.setTemplateId("3617cf73e7a1099097242115042cb7b0");
-        passFeedback.setComment("优惠券评论");
+        passFeedback.setComment("Coupon comment");
 
         System.out.println(JSON.toJSONString(
                 feedbackService.createFeedback(passFeedback)
@@ -50,13 +50,13 @@ public class FeedbackServiceTest extends AbstractServiceTest {
 //    {
 //        "data": [
 //        {
-//            "comment": "优惠券评论",
+//            "comment": "Coupon comment",
 //                "templateId": "3617cf73e7a1099097242115042cb7b0",
 //                "type": "pass",
 //                "userId": 149276
 //        },
 //        {
-//            "comment": "慕课网学习分布式卡包应用！",
+//            "comment": "Learning distributed coupon management application on MOOC!",
 //                "templateId": "-1",
 //                "type": "app",
 //                "userId": 149276

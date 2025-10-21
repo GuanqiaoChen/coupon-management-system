@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * <h1>用户服务测试</h1>
+ * <h1>User Service Test</h1>
  * Created by Qinyi.
  */
 @RunWith(SpringRunner.class)
@@ -27,12 +27,12 @@ public class UserServiceTest {
                 new User.BaseInfo("imooc", 10, "m")
         );
         user.setOtherInfo(
-                new User.OtherInfo("123456", "北京市朝阳区")
+                new User.OtherInfo("123456", "Chaoyang District, Beijing")
         );
 
         // {"data":{"baseInfo":{"age":10,"name":"imooc","sex":"m"},
         // "id":149276,
-        // "otherInfo":{"address":"北京市朝阳区","phone":"123456"}},
+        // "otherInfo":{"address":"Chaoyang District, Beijing","phone":"123456"}},
         // "errorCode":0,"errorMsg":""}
         System.out.println(JSON.toJSONString(userService.createUser(user)));
     }

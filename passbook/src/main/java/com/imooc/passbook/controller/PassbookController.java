@@ -30,16 +30,16 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/passbook")
 public class PassbookController {
 
-    /** 用户优惠券服务 */
+    /** User coupon service */
     private final IUserPassService userPassService;
 
-    /** 优惠券库存服务 */
+    /** Coupon inventory service */
     private final IInventoryService inventoryService;
 
-    /** 领取优惠券服务 */
+    /** Gain coupon service */
     private final IGainPassTemplateService gainPassTemplateService;
 
-    /** 反馈服务 */
+    /** Feedback service */
     private final IFeedbackService feedbackService;
 
     /** HttpServletRequest */
@@ -59,8 +59,8 @@ public class PassbookController {
     }
 
     /**
-     * <h2>获取用户个人的优惠券信息</h2>
-     * @param userId 用户 id
+     * <h2>Get user personal coupon information</h2>
+     * @param userId user id
      * @return {@link Response}
      * */
     @ResponseBody
@@ -77,8 +77,8 @@ public class PassbookController {
     }
 
     /**
-     * <h2>获取用户使用了的优惠券信息</h2>
-     * @param userId 用户 id
+     * <h2>Get user used coupon information</h2>
+     * @param userId user id
      * @return {@link Response}
      * */
     @ResponseBody
@@ -94,7 +94,7 @@ public class PassbookController {
     }
 
     /**
-     * <h2>用户使用优惠券</h2>
+     * <h2>User use coupon</h2>
      * @param pass {@link Pass}
      * @return {@link Response}
      * */
@@ -112,8 +112,8 @@ public class PassbookController {
     }
 
     /**
-     * <h2>获取库存信息</h2>
-     * @param userId 用户 id
+     * <h2>Get inventory information</h2>
+     * @param userId user id
      * @return {@link Response}
      * */
     @ResponseBody
@@ -130,7 +130,7 @@ public class PassbookController {
     }
 
     /**
-     * <h2>用户领取优惠券</h2>
+     * <h2>User gain coupon</h2>
      * @param request {@link GainPassTemplateRequest}
      * @return {@link Response}
      * */
@@ -149,7 +149,7 @@ public class PassbookController {
     }
 
     /**
-     * <h2>用户创建评论</h2>
+     * <h2>User create feedback</h2>
      * @param feedback {@link Feedback}
      * @return {@link Response}
      * */
@@ -167,8 +167,8 @@ public class PassbookController {
     }
 
     /**
-     * <h2>用户获取评论信息</h2>
-     * @param userId 用户 id
+     * <h2>User get feedback information</h2>
+     * @param userId user id
      * @return {@link Response}
      * */
     @ResponseBody
@@ -185,7 +185,7 @@ public class PassbookController {
     }
 
     /**
-     * <h2>异常演示接口</h2>
+     * <h2>Exception demonstration interface</h2>
      * @return {@link Response}
      * */
     @ResponseBody
