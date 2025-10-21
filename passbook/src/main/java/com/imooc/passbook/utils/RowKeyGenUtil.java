@@ -54,7 +54,7 @@ public class RowKeyGenUtil {
          * Why inverse timestamp? To make the latest feedback appear first when scanning
          * These two parts ensure the HBase performance and user experience
         */ 
-        return new StringBuilder(String.valueOf(feedback.getUserId())).reverse().toString() +
-                (Long.MAX_VALUE - System.currentTimeMillis());
+        return new StringBuilder(String.valueOf(feedback.getUserId())).reverse().toString() 
+                + (Long.MAX_VALUE - System.currentTimeMillis());
     }
 }

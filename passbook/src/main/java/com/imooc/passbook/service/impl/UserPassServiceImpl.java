@@ -38,8 +38,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * <h1>用户优惠券相关功能实现</h1>
- * Created by Qinyi.
+ * <h1>User Pass Service Implement</h1>
  */
 @Slf4j
 @Service
@@ -120,27 +119,38 @@ public class UserPassServiceImpl implements IUserPassService {
     }
 
     /**
-     * <h2>根据优惠券状态获取优惠券信息</h2>
-     * @param userId 用户 id
+     * <h2>Get Pass Info by Status</h2>
+     * PassStatus is global enum
+     * @param userId User id
      * @param status {@link PassStatus}
      * @return {@link Response}
      * */
     private Response getPassInfoByStatus(Long userId, PassStatus status) throws Exception {
 
-        // 根据 userId 构造行键前缀
+        // Based on userId to build row key prefix
         byte[] rowPrefix = Bytes.toBytes(new StringBuilder(String.valueOf(userId)).reverse().toString());
 
+        // Compare filter that set unused status as equal
         CompareFilter.CompareOp compareOp =
                 status == PassStatus.UNUSED ?
                         CompareFilter.CompareOp.EQUAL : CompareFilter.CompareOp.NOT_EQUAL;
 
+        // Scanner for HBase
         Scan scan = new Scan();
 
+        // Add Prefix filter to filter to get a specific user
         List<Filter> filters = new ArrayList<>();
-
-        // 1. 行键前缀过滤器, 找到特定用户的优惠券
         filters.add(new PrefixFilter(rowPrefix));
-        // 2. 基于列单元值的过滤器, 找到未使用的优惠券
+
+        /* 
+         * Set filter to compare the CON_DATE column
+         * If status is ALL, then do not add this filter
+         * Because ALL means no matter used or unused
+         * Recall that CON_DATE = -1 means unused
+         * If status is UNUSED, then compare CON_DATE with -1 by equal
+         * If status is USED, then compare CON_DATE with -1 by not equal
+         * Finally, we get the passes based on different status
+         */
         if (status != PassStatus.ALL) {
             filters.add(
                     new SingleColumnValueFilter(
@@ -150,15 +160,19 @@ public class UserPassServiceImpl implements IUserPassService {
             );
         }
 
+        // Scan Pass table with filters (Prefix filter and Compare filter)
         scan.setFilter(new FilterList(filters));
 
+        // Get Pass list from HBase by scan
         List<Pass> passes = hbaseTemplate.find(Constants.PassTable.TABLE_NAME, scan, new PassRowMapper());
+
+        // Build PassTemplate and Merchants Map through Pass list
         Map<String, PassTemplate> passTemplateMap = buildPassTemplateMap(passes);
         Map<Integer, Merchants> merchantsMap = buildMerchantsMap(
                 new ArrayList<>(passTemplateMap.values()));
 
+        /** Build PassInfo consisting of Pass, PassTemplate, and Merchants with 3 different Pass Status */
         List<PassInfo> result = new ArrayList<>();
-
         for (Pass pass : passes) {
             PassTemplate passTemplate = passTemplateMap.getOrDefault(
                     pass.getTemplateId(), null);
@@ -180,7 +194,7 @@ public class UserPassServiceImpl implements IUserPassService {
     }
 
     /**
-     * <h2>通过获取的 Passes 对象构造 Map</h2>
+     * <h2>Build PassTemplate in Map through User Pass in HBase</h2>
      * @param passes {@link Pass}
      * @return Map {@link PassTemplate}
      * */
@@ -202,19 +216,24 @@ public class UserPassServiceImpl implements IUserPassService {
         byte[] START = Bytes.toBytes(Constants.PassTemplateTable.START);
         byte[] END = Bytes.toBytes(Constants.PassTemplateTable.END);
 
+        /** Get PassTemplateIds from Pass list */
         List<String> templateIds = passes.stream().map(
                 Pass::getTemplateId
         ).collect(Collectors.toList());
 
+        /** Define list of Get objects to fetch PassTemplate data */
         List<Get> templateGets = new ArrayList<>(templateIds.size());
         templateIds.forEach(t -> templateGets.add(new Get(Bytes.toBytes(t))));
 
+        /** Fetch PassTemplate data from HBase */
         Result[] templateResults = hbaseTemplate.getConnection()
                 .getTable(TableName.valueOf(Constants.PassTemplateTable.TABLE_NAME))
                 .get(templateGets);
 
-        // 构造 PassTemplateId -> PassTemplate Object 的 Map, 用于构造 PassInfo
+        /** Build PassTemplate Map */
         Map<String, PassTemplate> templateId2Object = new HashMap<>();
+
+        /** Parse each Result to PassTemplate object */
         for (Result item : templateResults) {
             PassTemplate passTemplate = new PassTemplate();
 
@@ -239,7 +258,7 @@ public class UserPassServiceImpl implements IUserPassService {
     }
 
     /**
-     * <h2>通过获取的 PassTemplate 对象构造 Merchants Map</h2>
+     * <h2>Build Merchants Map through PassTemplate</h2>
      * @param passTemplates {@link PassTemplate}
      * @return {@link Merchants}
      * */
@@ -247,9 +266,13 @@ public class UserPassServiceImpl implements IUserPassService {
     Map<Integer, Merchants> buildMerchantsMap(List<PassTemplate> passTemplates) {
 
         Map<Integer, Merchants> merchantsMap = new HashMap<>();
+
+        /** Get all Merchants Ids */
         List<Integer> merchantsIds = passTemplates.stream().map(
                 PassTemplate::getId
         ).collect(Collectors.toList());
+
+        /** Fetch Merchants information from Merchants Dao originally in MySQL*/
         List<Merchants> merchants = merchantsDao.findByIdIn(merchantsIds);
 
         merchants.forEach(m -> merchantsMap.put(m.getId(), m));
